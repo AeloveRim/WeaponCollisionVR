@@ -1556,15 +1556,15 @@ bool ZacOnFrame::FrameGetWeaponPos(RE::Actor* actor, RE::NiPoint3& posWeaponBott
         ) { // only enable fist collision when both hands are fist
         float reachL(0.0f), handleL(0.0f);
         if (isFistL) { 
-            reachL = 10.0f;
+            reachL = 20.0f;
             handleL = 10.0f;
             log::trace("Left: fist. actor:{}", actor->GetBaseObject()->GetName());
         } else if (isBow) { // OK
-            reachL = 70.0f;
-            handleL = 70.0f;
+            reachL = 0.0f;
+            handleL = 0.0f;
             log::trace("Left: bow. actor:{}", actor->GetBaseObject()->GetName());
         } else if (isDaggerL) { // OK
-            reachL = 20.0f;
+            reachL = 40.0f;
             handleL = 10.0f;
             log::trace("Left: dagger. actor:{}", actor->GetBaseObject()->GetName());
         } else if (isSwordL) { // OK
@@ -1622,7 +1622,7 @@ bool ZacOnFrame::FrameGetWeaponPos(RE::Actor* actor, RE::NiPoint3& posWeaponBott
         ) {
         float reachR(0.0f), handleR(0.0f);
         if (isFistR) {
-            reachR = 10.0f;
+            reachR = 20.0f;
             handleR = 10.0f;
             log::trace("Right: fist. actor:{}", actor->GetBaseObject()->GetName());
         }else if (isTwoHandedAxe || isWarHammer) { // OK
@@ -1634,7 +1634,7 @@ bool ZacOnFrame::FrameGetWeaponPos(RE::Actor* actor, RE::NiPoint3& posWeaponBott
             handleR = 20.0f;
             log::trace("Right: two-handed greatsword. actor:{}", actor->GetBaseObject()->GetName());
         } else if (isDaggerR) { // OK
-            reachR = 20.0f;
+            reachR = 40.0f;
             handleR = 10.0f;
             log::trace("Right: dagger. actor:{}", actor->GetBaseObject()->GetName());
         } else if (isSwordR) {  // OK
