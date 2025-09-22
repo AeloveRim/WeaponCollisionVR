@@ -1216,6 +1216,24 @@ void ZacOnFrame::CollisionEffect(RE::Actor* playerActor, RE::Actor* enemyActor, 
             TimeSlowEffect(playerActor, iTimeSlowFrameNormal);
         }
 
+        // (Tweaks) Apply parrying spell effects to player
+    auto DataHandler = RE::TESDataHandler::GetSingleton();
+        auto PPParryModIndex = DataHandler->GetLoadedModIndex("PPParryTweaks.esp");
+        if (!PPParryModIndex.has_value()) {
+            log::trace("Pseudo Physical Parry: failed to get PPParryTweaks");
+        }
+        else
+        {
+            RE::FormID partFormID1 = 0x000800;
+            RE::FormID fullFormID1 = GetFullFormID(PPParryModIndex.value(), partFormID1);
+
+            RE::SpellItem* playerParryEffectSpell = RE::TESForm::LookupByID<RE::SpellItem>(fullFormID1);
+            if (playerParryEffectSpell) {
+                enemyActor->GetMagicCaster(RE::MagicSystem::CastingSource::kInstant)
+                    ->CastSpellImmediate(playerParryEffectSpell, false, playerActor, 1.f, false, 0.f,
+                                         nullptr);
+            }
+        }
 
         // (Parry - 3) Player stamina cost
         auto playerCurSta = playerActor->AsActorValueOwner()->GetActorValue(RE::ActorValue::kStamina);
